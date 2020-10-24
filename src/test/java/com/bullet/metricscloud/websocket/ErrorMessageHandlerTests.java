@@ -37,7 +37,7 @@ public class ErrorMessageHandlerTests {
 
         errorMessageHandler.handle(webSocketSessionMock);
 
-        verify(webSocketSessionMock, times(1)).send(any());
+        verify(webSocketSessionMock, times(1)).send(any(Flux.class));
     }
 
     private List<Tuple2<Category, String>> createTuples() {
