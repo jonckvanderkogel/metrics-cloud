@@ -26,18 +26,22 @@ public class ErrorMessageHandler implements WebSocketHandler {
 
     @Override
     public Mono<Void> handle(WebSocketSession webSocketSession) {
-        return webSocketSession.send(errorMessageFlux
-                .map(message -> {
-                    ErrorMessageDTO dto = new ErrorMessageDTO("ErrorMessage", convertTuplesToMap(message.getHeaders()));
-                    try {
-                        return objectMapper.writeValueAsString(dto);
-                    } catch (JsonProcessingException e) {
-                        return "Error while serializing to JSON";
-                    }
-                })
-                .map(webSocketSession::textMessage))
-                .and(webSocketSession.receive()
-                        .map(WebSocketMessage::getPayloadAsText).log());
+        return webSocketSession
+                .send(errorMessageFlux
+                        .map(message -> {
+                            ErrorMessageDTO dto = new ErrorMessageDTO("ErrorMessage", convertTuplesToMap(message.getHeaders()));
+                            try {
+                                return objectMapper.writeValueAsString(dto);
+                            } catch (JsonProcessingException e) {
+                                return "Error while serializing to JSON";
+                            }
+                        })
+                        .map(webSocketSession::textMessage))
+                .and(webSocketSession
+                        .receive()
+                        .map(WebSocketMessage::getPayloadAsText)
+                        .log()
+                );
     }
 
     private Map<String, String> convertTuplesToMap(List<Tuple2<Category,String>> tuples) {
