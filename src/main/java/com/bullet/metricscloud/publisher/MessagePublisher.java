@@ -12,8 +12,8 @@ public class MessagePublisher {
     private final Function<Long, ErrorScenario> errorScenarioFun;
 
     public Flux<ErrorMessage> generateErrorMessages() {
-        return Flux.interval(Duration.ofMillis(10))
+        return Flux.interval(Duration.ofSeconds(1))
                 .map(counter -> errorScenarioFun.apply(counter).generateErrorMessage())
-                .onBackpressureBuffer(100);
+                .onBackpressureBuffer(1000);
     }
 }
