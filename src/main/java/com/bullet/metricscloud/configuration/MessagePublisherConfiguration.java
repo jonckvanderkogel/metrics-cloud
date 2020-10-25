@@ -56,9 +56,14 @@ public class MessagePublisherConfiguration {
         return List.of(scenario1, scenario2, scenario3, scenario4);
     }
 
+    /*
+     * This function ensures that a specific ErrorScenario is used as many times as specified by the "seriesValue".
+     * So in other words, we want to cycle through the scenarios using each scenario for the specified number
+     * of iterations.
+     */
     private Function<Long, ErrorScenario> getErrorScenarioFun() {
         var errorScenarios = getErrorScenarios();
         long seriesValue = 250;
-        return (l) -> errorScenarios.get(Long.valueOf(((l % (seriesValue * errorScenarios.size()))/seriesValue)).intValue());
+        return (l) -> errorScenarios.get(Long.valueOf((l % (seriesValue * errorScenarios.size())) / seriesValue).intValue());
     }
 }
