@@ -23,11 +23,6 @@ public class WebsocketConfiguration {
         Map<String, WebSocketHandler> urlMap = new HashMap<>();
         urlMap.put("/websocket", new ErrorMessageHandler(errorMessageFlux));
 
-        Map<String, CorsConfiguration> corsConfigurationMap = new HashMap<>();
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://localhost:8000");
-        corsConfigurationMap.put("/websocket", corsConfiguration);
-
         SimpleUrlHandlerMapping handlerMapping = new SimpleUrlHandlerMapping();
         handlerMapping.setOrder(1);
         handlerMapping.setUrlMap(urlMap);

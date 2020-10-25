@@ -21,31 +21,35 @@ public class MessagePublisherConfiguration {
 
     private List<ErrorScenario> getErrorScenarios() {
         var random = new SplittableRandom();
+        // Austria and /loans endpoint
         ErrorScenario scenario1 = new ErrorScenario(
                 List.of(
-                        new ErrorScenario.ErrorCondition(Category.COUNTRY, 80, 3),
-                        new ErrorScenario.ErrorCondition(Category.URL, 80, 2)
+                        new ErrorScenario.ErrorCondition(Category.COUNTRY, 100, 3),
+                        new ErrorScenario.ErrorCondition(Category.URL, 100, 2)
                 ),
                 random);
 
+        // iOS and version 2.2
         ErrorScenario scenario2 = new ErrorScenario(
                 List.of(
-                        new ErrorScenario.ErrorCondition(Category.OS, 90, 1),
-                        new ErrorScenario.ErrorCondition(Category.USER_TYPE, 90, 0)
+                        new ErrorScenario.ErrorCondition(Category.OS, 100, 1),
+                        new ErrorScenario.ErrorCondition(Category.APP_VERSION, 100, 10)
                 ),
                 random);
 
+        // T-Mobile
         ErrorScenario scenario3 = new ErrorScenario(
                 List.of(
-                        new ErrorScenario.ErrorCondition(Category.MOBILE_PROVIDER, 75, 2)
+                        new ErrorScenario.ErrorCondition(Category.MOBILE_PROVIDER, 100, 2)
                 ),
                 random);
 
+        // iOS, version 2.3 and /creditcards endpoint
         ErrorScenario scenario4 = new ErrorScenario(
                 List.of(
-                        new ErrorScenario.ErrorCondition(Category.OS, 90, 0),
-                        new ErrorScenario.ErrorCondition(Category.APP_VERSION, 90, 11),
-                        new ErrorScenario.ErrorCondition(Category.URL, 90, 7)
+                        new ErrorScenario.ErrorCondition(Category.OS, 100, 1),
+                        new ErrorScenario.ErrorCondition(Category.APP_VERSION, 100, 11),
+                        new ErrorScenario.ErrorCondition(Category.URL, 100, 7)
                 ),
                 random);
 
@@ -54,7 +58,7 @@ public class MessagePublisherConfiguration {
 
     private Function<Long, ErrorScenario> getErrorScenarioFun() {
         var errorScenarios = getErrorScenarios();
-        long seriesValue = 10;
+        long seriesValue = 250;
         return (l) -> errorScenarios.get(Long.valueOf(((l % (seriesValue * errorScenarios.size()))/seriesValue)).intValue());
     }
 }
