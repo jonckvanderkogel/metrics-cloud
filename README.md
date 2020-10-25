@@ -5,7 +5,9 @@ The point of this is that it's nice for OPS teams to visualize which categories 
 
 Also this project is an exercise in Reactive Streams so that's the technique used to generate the error messages.
 
-# Test websocket
-To test if the websocket is actually receiving data:
-
+# See word cloud
 Using a browser, navigate to localhost:8080
+
+# WordCloud2.js
+I'm using WordCloud2.js for rendering the word cloud.
+Code: https://github.com/timdream/wordcloud2.js/blob/HEAD/API.md
