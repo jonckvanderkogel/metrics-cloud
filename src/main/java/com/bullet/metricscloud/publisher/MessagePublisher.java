@@ -12,7 +12,7 @@ public class MessagePublisher {
     private final Function<Long, ErrorScenario> errorScenarioFun;
 
     public Flux<ErrorMessage> generateErrorMessages() {
-        return Flux.interval(Duration.ofMillis(100))
+        return Flux.interval(Duration.ofMillis(50))
                 .map(counter -> errorScenarioFun.apply(counter).generateErrorMessage())
                 .onBackpressureBuffer(1000);
     }
